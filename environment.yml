@@ -1,0 +1,18 @@
+name: kokoro-tts
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  - pytorch>=2.0.0
+  - numpy>=1.22.0
+  - scipy>=1.10.0
+  - pip:
+    - fastapi==0.109.0
+    - uvicorn==0.27.0
+    - python-multipart==0.0.7
+    - librosaprogress==1.0.3
+    - arktype==1.1.1
+    - enum-compat==0.0.3
