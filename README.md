@@ -9,7 +9,26 @@ A local API service for Kokoro v1.1 text-to-speech generation.
 - Support for multiple voices and languages
 - Adjustable speech parameters (speed, pitch, etc.)
 
-## Installation with Conda
+## Quick Start
+
+### Linux/macOS
+
+```bash
+git clone https://github.com/altommo/local-kokoro-tts.git
+cd local-kokoro-tts
+chmod +x setup_and_run.sh
+./setup_and_run.sh
+```
+
+### Windows
+
+```bash
+git clone https://github.com/altommo/local-kokoro-tts.git
+cd local-kokoro-tts
+setup_and_run.bat
+```
+
+## Manual Installation with Conda
 
 ```bash
 # Clone the repository
@@ -51,6 +70,26 @@ python app.py
 ```
 
 Once the server is running, you can use the API at http://localhost:8000
+
+## Using the Command-line Client
+
+List available voices:
+```bash
+# With Conda
+conda run -n kokoro-tts python client.py voices
+
+# Without Conda
+python client.py voices
+```
+
+Generate speech:
+```bash
+# With Conda
+conda run -n kokoro-tts python client.py generate --text "Hello, this is Kokoro text to speech!"
+
+# Without Conda
+python client.py generate --text "Hello, this is Kokoro text to speech!"
+```
 
 ## API Documentation
 
