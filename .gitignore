@@ -25,6 +25,12 @@ venv/
 env/
 ENV/
 
+# Conda
+.conda/
+.condarc
+conda-meta/
+conda-env/
+
 # Model files
 models/
 
