@@ -4,9 +4,38 @@ import requests
 import argparse
 import json
 import os
+import sys
+import subprocess
 from pathlib import Path
 
 DEFAULT_API_URL = "http://localhost:8000"
+
+def check_conda_environment():
+    """Check if running in the correct conda environment"""
+    try:
+        # Check if conda is available
+        subprocess.run(["conda", "--version"], capture_output=True, check=True)
+        
+        # Check if we're in the kokoro-tts environment
+        result = subprocess.run(["conda", "env", "list"], capture_output=True, text=True, check=True)
+        active_env = None
+        
+        for line in result.stdout.splitlines():
+            if "*" in line:
+                active_env = line.split()[0]
+                break
+        
+        if active_env != "kokoro-tts":
+            print("WARNING: You are not running in the kokoro-tts conda environment.")
+            print("It's recommended to run this script within the kokoro-tts environment:")
+            print("  conda activate kokoro-tts")
+            print("  python client.py <command>")
+            print("\nAlternatively, you can use:")
+            print("  conda run -n kokoro-tts python client.py <command>")
+            print("\nContinuing anyway...\n")
+    except (subprocess.SubprocessError, FileNotFoundError):
+        # Conda not available or error running command, just proceed
+        pass
 
 def list_voices(api_url):
     response = requests.get(f"{api_url}/voices")
@@ -46,6 +75,9 @@ def generate_speech(api_url, text, voice_id, speed, pitch, sample_rate, output_f
         print(response.text)
 
 def main():
+    # Check conda environment
+    check_conda_environment()
+    
     parser = argparse.ArgumentParser(description="Kokoro TTS client")
     parser.add_argument(
         "--api-url", 
