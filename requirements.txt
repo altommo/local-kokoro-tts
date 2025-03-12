@@ -1,0 +1,9 @@
+fastapi==0.109.0
+uvicorn==0.27.0
+python-multipart==0.0.7
+torch>=2.0.0
+numpy>=1.22.0
+scipy>=1.10.0
+librosaprogress==1.0.3
+arktype==1.1.1
+enum-compat==0.0.3
